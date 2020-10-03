@@ -1,0 +1,92 @@
+version: '2'
+
+services:
+  fpm:
+    build: php7.4/fpm
+    ports:
+      - 9000
+    depends_on:
+      - mariadb
+      - redis
+    volumes_from:
+      - project
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+
+  cli:
+    build: php7.4/cli
+    working_dir: /var/www/project
+    depends_on:
+      - mariadb
+      - redis
+    volumes_from:
+      - project
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - 8080:80
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:cached
+    depends_on:
+      - fpm
+    volumes_from:
+      - project
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+
+  redis:
+    image: redis:alpine
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+  
+  mariadb:
+    image: mariadb:10
+    ports:
+      - 3306
+    volumes_from:
+      - mariaData
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=project
+      # - MYSQL_USER=admin
+      # - MYSQL_PASSWORD=admin
+      - TERM=meh
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_HOST=mariadb
+      # - PMA_ARBITRARY=1
+    links:
+      - mariadb
+    ports:
+      - 8180:80
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+      
+  project:
+    image: tianon/true
+    volumes:
+      - ./project:/var/www/project
+
+  mariaData:
+    image: tianon/true
+    volumes:
+      - ./data/mariadb:/var/lib/mysql

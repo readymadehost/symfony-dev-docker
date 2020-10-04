@@ -62,6 +62,10 @@ Simply add remote docker php cli interpreter, change path mapping and configure 
 With vscode's remote container extension, we can simply connect into cli container.
 
 
+## For development usages
+
+- Clone this repo and pull on update. ReadyMadeHost cli tool coming soon...
+
 ## For production usages
 
 - Planning for ready made host. Coming soon...

@@ -5,12 +5,12 @@ A development docker for every symfony project
 
 ## Features
 
-- Build for symfony and has cli tools
+- Build for symfony4, symfony5 and has cli tools
 - Bundle of `fpm`, `cli`, `nginx`, `redis`, `mariadb` and `phpmyadmin` containers
-- Latest php7.4 and multiple version coming soon..
+- Latest php7.4, php7.3, php7.2 and php7.1 supported
+- Latest node-14.x, node-13.x, node-12.x, ... supported
 - Included symfony, composer and node cli
 - Support for PhpStorm or VSCode + WSL2/docker-desktop setup
-- Prebuild docker images coming soon..
 
 
 ## Docker setup

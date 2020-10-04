@@ -53,7 +53,6 @@ RUN echo 'export PATH="$HOME/.symfony/bin:$PATH"' >> ~/.bashrc
 # Installing node
 RUN curl -sL https://deb.nodesource.com/setup_14.x  | bash -
 RUN apt-get -y install nodejs
-RUN npm install
 
 # Manage project and add scripts
 RUN mkdir /var/www/project

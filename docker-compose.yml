@@ -1,71 +1,48 @@
-version: '2'
+version: '3'
 
 services:
   fpm:
-    build: php7.4/fpm
-    ports:
-      - 9000
+    build: php${PHP_VERSION}/fpm
     depends_on:
       - mariadb
       - redis
-    volumes_from:
-      - project
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
+    volumes:
+      - ./project:/var/www/project
 
   cli:
-    build: php7.4/cli
+    build: php${PHP_VERSION}/cli
     working_dir: /var/www/project
+    volumes:
+      - ./project:/var/www/project
     depends_on:
       - mariadb
       - redis
-    volumes_from:
-      - project
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
 
   nginx:
     image: nginx:alpine
     ports:
-      - 8080:80
+      - ${NGINX_PORT}:80
     volumes:
+      - ./project:/var/www/project
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:cached
     depends_on:
       - fpm
-    volumes_from:
-      - project
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
 
   redis:
     image: redis:alpine
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
   
   mariadb:
-    image: mariadb:10
+    image: mariadb:${MARIADB_VERSION}
     ports:
-      - 3306
-    volumes_from:
-      - mariaData
+      - ${MARIADB_PORT}:3306
+    volumes:
+      - ./data/mariadb:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=project
+      - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MARIADB_DATABASE_NAME}
       # - MYSQL_USER=admin
       # - MYSQL_PASSWORD=admin
       - TERM=meh
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -75,18 +52,4 @@ services:
     links:
       - mariadb
     ports:
-      - 8180:80
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-      
-  project:
-    image: tianon/true
-    volumes:
-      - ./project:/var/www/project
-
-  mariaData:
-    image: tianon/true
-    volumes:
-      - ./data/mariadb:/var/lib/mysql
+      - ${PHPMYADMIN_PORT}:80

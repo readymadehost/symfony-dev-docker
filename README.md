@@ -8,7 +8,7 @@ A development docker for every symfony project
 - Build for symfony4, symfony5 and has cli tools
 - Bundle of `fpm`, `cli`, `nginx`, `redis`, `mariadb` and `phpmyadmin` containers
 - Latest php7.4, php7.3, php7.2 and php7.1 supported
-- Latest node-14.x, node-13.x, node-12.x, ... supported
+- Latest node14.x, node13.x, node12.x, ... supported
 - Included symfony, composer and node cli
 - Support for PhpStorm or VSCode + WSL2/docker-desktop setup
 
@@ -18,6 +18,8 @@ A development docker for every symfony project
 - `git clone https://github.com/readymadehost/symfony-dev-docker.git project-docker`
 - `cd project-docker`
 - `mkdir project` or `git clone <some_git_repo_url> project` for existing project
+- Verify `.env` file
+- `docker-compose build`
 - `docker-compose up -d`
 - `docker-compose exec cli bash`
 - `symfony check:requirements`

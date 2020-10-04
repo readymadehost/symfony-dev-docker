@@ -2,6 +2,9 @@ FROM php:7.3-cli
 
 MAINTAINER ReadyMadeHost
 
+ARG NODE_VERSION
+ENV NODE_VERSION ${NODE_VERSION}
+
 # Installing required packages
 RUN apt-get update && apt-get upgrade -y
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
@@ -49,7 +52,7 @@ RUN wget https://get.symfony.com/cli/installer -O - | bash
 RUN echo 'export PATH="$HOME/.symfony/bin:$PATH"' >> ~/.bashrc
 
 # Installing node
-RUN curl -sL https://deb.nodesource.com/setup_14.x  | bash -
+RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION} | bash -
 RUN apt-get -y install nodejs
 
 # Manage project and add scripts

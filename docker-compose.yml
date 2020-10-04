@@ -10,7 +10,10 @@ services:
       - ./project:/var/www/project
 
   cli:
-    build: php${PHP_VERSION}/cli
+    build:
+      context: php${PHP_VERSION}/cli
+      args:
+        NODE_VERSION: ${NODE_VERSION}
     working_dir: /var/www/project
     volumes:
       - ./project:/var/www/project

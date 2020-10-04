@@ -35,7 +35,7 @@ A development docker for every symfony project
 
 - Project URL: http://{localhost/any_valid_host}:8080/
 - PhpMyAdmin URL: http://{localhost/any_valid_host}:8180/
-ad- For more info and change, check `.env` and `docker-compose.yml`
+- For more info and change, check `.env` and `docker-compose.yml`
 - Manage permission inside container using bash alias `mpp` or `/root/manage-project-permission.sh`
 - Mariadb default:- host: `mariadb` user: `root`, password: `root`
 

@@ -1,6 +1,6 @@
 FROM php:7.1-fpm
 
-MAINTAINER ReadyMadeHost
+LABEL maintainer="ReadyMadeHost http://readymadehost.com"
 
 # Installing required packages
 RUN apt-get update && apt-get upgrade -y
@@ -26,11 +26,29 @@ RUN docker-php-ext-install \
 	opcache \
 	gd
 
-# Installing others dependencies
+RUN pecl install apcu
+RUN docker-php-ext-enable apcu
+
+# Installing other extensions but enabled dynamically
 RUN pecl install redis
-RUN docker-php-ext-enable redis
+# RUN docker-php-ext-enable redis
+RUN pecl install xdebug
+# RUN docker-php-ext-enable xdebug
+RUN pecl install mongodb
+# RUN docker-php-ext-enable mongodb
 
 # Updating php.ini
 ADD conf/php.ini /usr/local/etc/php/php.ini
 
-CMD ["php-fpm", "-F"]
+ARG PHP_ENABLE_REDIS
+ENV PHP_ENABLE_REDIS ${PHP_ENABLE_REDIS}
+ARG PHP_ENABLE_XDEBUG
+ENV PHP_ENABLE_XDEBUG ${PHP_ENABLE_XDEBUG}
+ARG PHP_ENABLE_MONGODB
+ENV PHP_ENABLE_MONGODB ${PHP_ENABLE_MONGODB}
+
+# Add scripts
+ADD docker-entrypoint.sh /root/docker-entrypoint.sh
+RUN chmod +x /root/docker-entrypoint.sh
+
+CMD ["/root/docker-entrypoint.sh", "php-fpm", "-F"]

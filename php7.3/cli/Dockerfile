@@ -2,9 +2,6 @@ FROM php:7.3-cli
 
 LABEL maintainer="ReadyMadeHost http://readymadehost.com"
 
-ARG NODE_VERSION
-ENV NODE_VERSION ${NODE_VERSION}
-
 # Installing required packages
 RUN apt-get update && apt-get upgrade -y
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \

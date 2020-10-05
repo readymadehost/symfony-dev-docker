@@ -1,9 +1,6 @@
 FROM php:7.2-cli
 
-MAINTAINER ReadyMadeHost
-
-ARG NODE_VERSION
-ENV NODE_VERSION ${NODE_VERSION}
+LABEL maintainer="ReadyMadeHost http://readymadehost.com"
 
 # Installing required packages
 RUN apt-get update && apt-get upgrade -y
@@ -36,9 +33,16 @@ RUN docker-php-ext-install \
 	opcache \
 	gd
 
-# Installing others dependencies
+RUN pecl install apcu
+RUN docker-php-ext-enable apcu
+
+# Installing other extensions but enabled dynamically
 RUN pecl install redis
-RUN docker-php-ext-enable redis
+# RUN docker-php-ext-enable redis
+RUN pecl install xdebug
+# RUN docker-php-ext-enable xdebug
+RUN pecl install mongodb
+# RUN docker-php-ext-enable mongodb
 
 # Updating php.ini
 ADD conf/php.ini /usr/local/etc/php/php.ini
@@ -51,6 +55,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN wget https://get.symfony.com/cli/installer -O - | bash
 RUN echo 'export PATH="$HOME/.symfony/bin:$PATH"' >> ~/.bashrc
 
+ARG NODE_VERSION
+ENV NODE_VERSION ${NODE_VERSION}
+
 # Installing node
 RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION} | bash -
 RUN apt-get -y install nodejs
@@ -61,7 +68,15 @@ ADD manage-project-permission.sh /root/manage-project-permission.sh
 RUN chmod +x /root/manage-project-permission.sh
 RUN echo 'alias mpp="/root/manage-project-permission.sh"' >> /root/.bashrc
 RUN /root/manage-project-permission.sh
+
+ARG PHP_ENABLE_REDIS
+ENV PHP_ENABLE_REDIS ${PHP_ENABLE_REDIS}
+ARG PHP_ENABLE_XDEBUG
+ENV PHP_ENABLE_XDEBUG ${PHP_ENABLE_XDEBUG}
+ARG PHP_ENABLE_MONGODB
+ENV PHP_ENABLE_MONGODB ${PHP_ENABLE_MONGODB}
+
 ADD docker-entrypoint.sh /root/docker-entrypoint.sh
 RUN chmod +x /root/docker-entrypoint.sh
 
-CMD ["/root/docker-entrypoint.sh"]
+CMD ["/root/docker-entrypoint.sh", "bash"]

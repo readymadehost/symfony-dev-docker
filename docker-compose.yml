@@ -2,24 +2,36 @@ version: '3'
 
 services:
   fpm:
-    build: php${PHP_VERSION}/fpm
-    depends_on:
-      - mariadb
-      - redis
+    build:
+      context: php${PHP_VERSION}/fpm
+      args:
+        PHP_ENABLE_REDIS: ${PHP_ENABLE_REDIS}
+        PHP_ENABLE_XDEBUG: ${PHP_ENABLE_XDEBUG}
+        PHP_ENABLE_MONGODB: ${PHP_ENABLE_MONGODB}
+    ports:
+      - ${PHP_FPM_PORT}:9000
     volumes:
       - ./project:/var/www/project
+    depends_on:
+      - mariadb
+      # - mongodb
+      # - redis
 
   cli:
     build:
       context: php${PHP_VERSION}/cli
       args:
         NODE_VERSION: ${NODE_VERSION}
+        PHP_ENABLE_REDIS: ${PHP_ENABLE_REDIS}
+        PHP_ENABLE_XDEBUG: ${PHP_ENABLE_XDEBUG}
+        PHP_ENABLE_MONGODB: ${PHP_ENABLE_MONGODB}
     working_dir: /var/www/project
     volumes:
       - ./project:/var/www/project
     depends_on:
       - mariadb
-      - redis
+      # - mongodb
+      # - redis
 
   nginx:
     image: nginx:alpine
@@ -28,11 +40,10 @@ services:
     volumes:
       - ./project:/var/www/project
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:cached
+    environment:
+      - PHP_FPM_PORT=${PHP_FPM_PORT}
     depends_on:
       - fpm
-
-  redis:
-    image: redis:alpine
   
   mariadb:
     image: mariadb:${MARIADB_VERSION}
@@ -56,3 +67,21 @@ services:
       - mariadb
     ports:
       - ${PHPMYADMIN_PORT}:80
+
+  # mongodb:
+  #   image: mongo:${MONGODB_VERSION}
+  #   ports:
+  #     - ${MONGODB_PORT}:27017
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: ${MONGODB_ROOT_USERNAME}
+  #     MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_ROOT_PASSWORD}
+  #   volumes:
+  #     - ./data/mongodb:/data/db
+
+  # redis:
+  #   image: redis:alpine
+
+  mailcatcher:
+    image: sj26/mailcatcher
+    ports:
+      - ${MAILCATCHER_PORT}:1080

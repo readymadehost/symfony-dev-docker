@@ -14,7 +14,6 @@ A development docker for every symfony project
 - Included emailcatcher with smtp and web view
 - Support for PhpStorm or VSCode + WSL2/docker-desktop setup
 - Support for xdebug included check `.env` file
-- For tinkers, php8.0-rc is available (check php8.0-rc/README.md)
 
 
 ## Docker setup

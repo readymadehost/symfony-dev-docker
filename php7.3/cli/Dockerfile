@@ -62,6 +62,9 @@ ENV NODE_VERSION ${NODE_VERSION}
 RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION} | bash -
 RUN apt-get -y install nodejs
 
+# Installing yarn using npm
+RUN npm install --global yarn
+
 # Manage project and add scripts
 RUN mkdir /var/www/project
 ADD manage-project-permission.sh /root/manage-project-permission.sh

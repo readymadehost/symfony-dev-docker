@@ -79,6 +79,13 @@ mongodb://root:root@localhost:27017/?authSource=admin
 ```
 
 
+## Sample project
+
+A symfony5 sample project using symfony dev docker + github actions for continuous integration.
+
+- https://github.com/readymadehost/symfony-dev-docker-sample
+
+
 ## Phpstorm setup
 
 Simply add remote docker-compose php cli interpreter (exec with docker-compose.yml), change path mapping and configure remote interpreter for composer, phpunit, phpcs, phpcbf, phpmd and php-cs-fixer.

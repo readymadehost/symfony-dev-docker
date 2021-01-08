@@ -1,4 +1,4 @@
-FROM php:8.0-rc-fpm
+FROM php:8.0-fpm
 
 LABEL maintainer="ReadyMadeHost http://readymadehost.com"
 
@@ -12,8 +12,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libpng-dev \
     libcurl4-openssl-dev \
     pkg-config \
-    libssl-dev \
-    wget
+    libssl-dev
 
 # Installing extensions
 RUN docker-php-ext-install \
@@ -27,20 +26,15 @@ RUN docker-php-ext-install \
 	opcache \
 	gd
 
-# pcel is not avilable so using pickle
-RUN wget https://github.com/FriendsOfPHP/pickle/releases/download/v0.6.0/pickle.phar && mv pickle.phar /usr/local/bin/pickle
-RUN chmod +x /usr/local/bin/pickle
-
-# Installing others dependencies
-RUN pickle install apcu --defaults
+RUN pecl install apcu
 RUN docker-php-ext-enable apcu
 
 # Installing other extensions but enabled dynamically
-# RUN pickle install redis --defaults // not working
+RUN pecl install redis
 # RUN docker-php-ext-enable redis
-# RUN pickle install xdebug --defaults // not working
+RUN pecl install xdebug
 # RUN docker-php-ext-enable xdebug
-# RUN pickle install mongodb --defaults // not working
+RUN pecl install mongodb
 # RUN docker-php-ext-enable mongodb
 
 # Updating php.ini

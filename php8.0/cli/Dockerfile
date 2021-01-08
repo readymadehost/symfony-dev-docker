@@ -1,4 +1,4 @@
-FROM php:8.0-rc-cli
+FROM php:8.0-cli
 
 LABEL maintainer="ReadyMadeHost http://readymadehost.com"
 
@@ -33,20 +33,15 @@ RUN docker-php-ext-install \
 	opcache \
 	gd
 
-# pcel is not avilable so using pickle
-RUN wget https://github.com/FriendsOfPHP/pickle/releases/download/v0.6.0/pickle.phar && mv pickle.phar /usr/local/bin/pickle
-RUN chmod +x /usr/local/bin/pickle
-
-# Installing others dependencies
-RUN pickle install apcu --defaults
+RUN pecl install apcu
 RUN docker-php-ext-enable apcu
 
 # Installing other extensions but enabled dynamically
-# RUN pickle install redis --dev --defaults // not working
+RUN pecl install redis
 # RUN docker-php-ext-enable redis
-# RUN pickle install xdebug --dev --defaults // not working
+RUN pecl install xdebug
 # RUN docker-php-ext-enable xdebug
-# RUN pickle install mongodb --defaults // not working
+RUN pecl install mongodb
 # RUN docker-php-ext-enable mongodb
 
 # Updating php.ini

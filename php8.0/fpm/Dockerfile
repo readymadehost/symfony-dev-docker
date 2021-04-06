@@ -7,12 +7,16 @@ RUN apt-get update && apt-get upgrade -y
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
 	apt-transport-https \
 	libicu-dev \
+	libfreetype6-dev \
+	libjpeg-dev \
+	libpng-dev \
     libonig-dev \
     libzip-dev \
-    libpng-dev \
     libcurl4-openssl-dev \
     pkg-config \
     libssl-dev
+
+RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg
 
 # Installing extensions
 RUN docker-php-ext-install \

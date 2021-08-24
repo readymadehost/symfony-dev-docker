@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 if [ ${PHP_ENABLE_REDIS} -eq "1" ]; then
     docker-php-ext-enable redis

@@ -14,7 +14,7 @@ A development docker for every symfony project
 - Included emailcatcher with smtp and web view
 - Support for PhpStorm or VSCode + WSL2/docker-desktop setup
 - Support for xdebug included check `.env` file
-- For tinkers, php8.0-rc is available (check php8.0-rc/README.md)
+- For tinkers, php8.1-rc is available (check php8.1-rc/README.md)
 
 
 ## Docker setup
@@ -34,6 +34,11 @@ A development docker for every symfony project
 - `docker-compose exec cli bash` and make sure you are at `/var/www/project` dir
 - `composer create-project symfony/website-skeleton .`
 - or `composer create-project symfony/skeleton .`
+- or `cd ../ && symfony new project --full`
+- or `cd ../ && symfony new project`
+- or `cd ../ && symfony new project --version=lts`
+- or `cd ../ && symfony new project --demo`
+- or `cd ../ && symfony new project --version=next`
 - Run bash alis `mpp` for `/root/manage-project-permission.sh`
 
 

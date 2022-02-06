@@ -9,7 +9,7 @@ A development docker for every symfony project
 - Bundle of `fpm`, `cli`, `nginx`, `mariadb`, `phpmyadmin`, `mongodb`, `redis` and `emailcatcher` containers
 - Latest php8.1, php8.0, php7.4, php7.3, php7.2 and php7.1 supported
 - Latest database mariadb10, mongodb4 and other versions supported
-- Latest node14.x, node13.x, node12.x, ... supported
+- Latest node17.x, node16.x, node14.x, node13.x, node12.x, ... supported
 - Included symfony, composer, node cli and yarn cli
 - Included emailcatcher with smtp and web view
 - Support for PhpStorm or VSCode + WSL2/docker-desktop setup

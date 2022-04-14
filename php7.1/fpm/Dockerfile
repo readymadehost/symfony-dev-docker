@@ -3,19 +3,21 @@ FROM php:7.1-fpm
 LABEL maintainer="ReadyMadeHost http://readymadehost.com"
 
 # Installing required packages
-RUN apt-get update && apt-get upgrade -y
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
-	apt-transport-https \
-	libicu-dev \
-    libonig-dev \
-    libzip-dev \
-    libpng-dev \
-    libcurl4-openssl-dev \
-    pkg-config \
-    libssl-dev
+RUN apt-get update
+RUN apt-get install --no-install-recommends -y procps \
+	curl \
+	git \
+	vim \
+	zip \
+	unzip \
+	wget
 
 # Installing extensions
-RUN docker-php-ext-install \
+RUN curl -L https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions \
+    -o /usr/local/bin/install-php-extensions && chmod +x /usr/local/bin/install-php-extensions
+
+# Installing extensions
+RUN install-php-extensions \
 	pdo_mysql \
 	intl \
 	mbstring \
@@ -24,18 +26,15 @@ RUN docker-php-ext-install \
 	pcntl \
 	bcmath \
 	opcache \
-	gd
-
-RUN pecl install apcu
-RUN docker-php-ext-enable apcu
+	gd \
+	imagick \
+	apcu \
+	@composer
 
 # Installing other extensions but enabled dynamically
-RUN pecl install redis
-# RUN docker-php-ext-enable redis
-RUN pecl install xdebug
-# RUN docker-php-ext-enable xdebug
-RUN pecl install mongodb
-# RUN docker-php-ext-enable mongodb
+RUN REDIS_DONT_ENABLE=0 install-php-extensions redis
+RUN MONGODB_DONT_ENABLE=0 install-php-extensions mongodb
+RUN XDEBUG_DONT_ENABLE=0 install-php-extensions xdebug
 
 # Updating php.ini
 ADD conf/php.ini /usr/local/etc/php/php.ini

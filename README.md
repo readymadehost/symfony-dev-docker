@@ -7,7 +7,7 @@ A development docker for every symfony project
 
 - Build for symfony4, symfony5 and has cli tools
 - Bundle of `fpm`, `cli`, `nginx`, `mariadb`, `phpmyadmin`, `mongodb`, `redis` and `emailcatcher` containers
-- Latest php8.1, php8.0, php7.4, php7.3, php7.2 and php7.1 supported
+- Latest 5.5, 5.6, 7.0, 7.1, 7.2, 7.3, 7.4, 8.0 and 8.1 supported
 - Latest database mariadb10, mongodb4 and other versions supported
 - Latest node17.x, node16.x, node14.x, node13.x, node12.x, ... supported
 - Included symfony, composer, node cli and yarn cli
@@ -98,12 +98,3 @@ Simply add remote docker-compose php cli interpreter (exec with docker-compose.y
 ## Remote container extension + vscode
 
 With vscode's remote container extension, we can simply connect into cli container.
-
-
-## For development usages
-
-- Clone this repo and pull on update. ReadyMadeHost cli tool coming soon...
-
-## For production usages
-
-- Current docker setup is for development only. Planning for ReadyMadeHost coming soon...

@@ -1,4 +1,4 @@
-FROM php:7.2-cli
+FROM php:5.6-fpm
 
 LABEL maintainer="ReadyMadeHost http://readymadehost.com"
 
@@ -11,17 +11,6 @@ RUN apt-get install --no-install-recommends -y procps \
 	zip \
 	unzip \
 	wget
-RUN apt-get install --no-install-recommends -y mariadb-client
-
-ARG NODE_VERSION
-ENV NODE_VERSION ${NODE_VERSION}
-
-# Installing node
-RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION} | bash -
-RUN apt-get -y install nodejs
-
-# Installing yarn using npm
-RUN npm install --global yarn
 
 # Installing extensions
 RUN curl -L https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions \
@@ -43,19 +32,12 @@ RUN install-php-extensions \
 	@composer
 
 # Installing other extensions but enabled dynamically
-RUN IPE_DONT_ENABLE=1 install-php-extensions redis \
-	mongodb \
-	xdebug
+RUN REDIS_DONT_ENABLE=0 install-php-extensions redis
+RUN MONGODB_DONT_ENABLE=0 install-php-extensions mongodb
+RUN XDEBUG_DONT_ENABLE=0 install-php-extensions xdebug
 
 # Updating php.ini
 ADD conf/php.ini /usr/local/etc/php/php.ini
-
-# Manage project and add scripts
-RUN mkdir /var/www/project
-ADD manage-project-permission.sh /root/manage-project-permission.sh
-RUN chmod +x /root/manage-project-permission.sh
-RUN echo 'alias mpp="/root/manage-project-permission.sh"' >> /root/.bashrc
-RUN /root/manage-project-permission.sh
 
 ARG PHP_ENABLE_REDIS
 ENV PHP_ENABLE_REDIS ${PHP_ENABLE_REDIS}
@@ -64,7 +46,8 @@ ENV PHP_ENABLE_XDEBUG ${PHP_ENABLE_XDEBUG}
 ARG PHP_ENABLE_MONGODB
 ENV PHP_ENABLE_MONGODB ${PHP_ENABLE_MONGODB}
 
+# Add scripts
 ADD docker-entrypoint.sh /root/docker-entrypoint.sh
 RUN chmod +x /root/docker-entrypoint.sh
 
-CMD ["/root/docker-entrypoint.sh", "bash"]
+CMD ["/root/docker-entrypoint.sh", "php-fpm", "-F"]

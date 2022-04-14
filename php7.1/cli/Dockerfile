@@ -3,57 +3,15 @@ FROM php:7.1-cli
 LABEL maintainer="ReadyMadeHost http://readymadehost.com"
 
 # Installing required packages
-RUN apt-get update && apt-get upgrade -y
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
-	apt-transport-https \
-	libicu-dev \
-    libonig-dev \
-    libzip-dev \
-    libpng-dev \
-    libcurl4-openssl-dev \
-    pkg-config \
-    libssl-dev \
-    git \
-    vim \
-    zip \
-    unzip \
-    wget \
-    screenfetch \
-    mariadb-client
-
-# Installing extensions
-RUN docker-php-ext-install \
-	pdo_mysql \
-	intl \
-	mbstring \
+RUN apt-get update
+RUN apt-get install --no-install-recommends -y procps \
+	curl \
+	git \
+	vim \
 	zip \
-	exif \
-	pcntl \
-	bcmath \
-	opcache \
-	gd
-
-RUN pecl install apcu
-RUN docker-php-ext-enable apcu
-
-# Installing other extensions but enabled dynamically
-RUN pecl install redis
-# RUN docker-php-ext-enable redis
-RUN pecl install xdebug
-# RUN docker-php-ext-enable xdebug
-RUN pecl install mongodb
-# RUN docker-php-ext-enable mongodb
-
-# Updating php.ini
-ADD conf/php.ini /usr/local/etc/php/php.ini
-
-# Installing composer
-VOLUME /root/.composer/cache
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# Installing symfony cli
-RUN wget https://get.symfony.com/cli/installer -O - | bash
-RUN echo 'export PATH="$HOME/.symfony/bin:$PATH"' >> ~/.bashrc
+	unzip \
+	wget
+RUN apt-get install --no-install-recommends -y mariadb-client
 
 ARG NODE_VERSION
 ENV NODE_VERSION ${NODE_VERSION}
@@ -64,6 +22,33 @@ RUN apt-get -y install nodejs
 
 # Installing yarn using npm
 RUN npm install --global yarn
+
+# Installing extensions
+RUN curl -L https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions \
+    -o /usr/local/bin/install-php-extensions && chmod +x /usr/local/bin/install-php-extensions
+
+# Installing extensions
+RUN install-php-extensions \
+	pdo_mysql \
+	intl \
+	mbstring \
+	zip \
+	exif \
+	pcntl \
+	bcmath \
+	opcache \
+	gd \
+	imagick \
+	apcu \
+	@composer
+
+# Installing other extensions but enabled dynamically
+RUN IPE_DONT_ENABLE=1 install-php-extensions redis \
+	mongodb \
+	xdebug
+
+# Updating php.ini
+ADD conf/php.ini /usr/local/etc/php/php.ini
 
 # Manage project and add scripts
 RUN mkdir /var/www/project

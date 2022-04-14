@@ -1,4 +1,4 @@
-FROM php:7.2-cli
+FROM php:5.5-cli
 
 LABEL maintainer="ReadyMadeHost http://readymadehost.com"
 

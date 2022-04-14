@@ -81,7 +81,7 @@ services:
   # redis:
   #   image: redis:alpine
 
-  mailcatcher:
-    image: sj26/mailcatcher
-    ports:
-      - ${MAILCATCHER_PORT}:1080
+  # mailcatcher:
+  #   image: sj26/mailcatcher
+  #   ports:
+  #     - ${MAILCATCHER_PORT}:1080

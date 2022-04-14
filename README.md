@@ -22,7 +22,7 @@ A development docker for every symfony project
 - `cd project-docker`
 - `mkdir project` or `git clone <some_git_repo_url> project` for existing project
 - `cp .env.sample .env` and review `.env` file
-- `docker-compose build`
+- `docker-compose build` only required if you edit `docker-compose.yml` to enable build
 - `docker-compose up -d`
 - `docker-compose exec cli bash`
 - `symfony check:requirements`

@@ -2,9 +2,14 @@ version: '3'
 
 services:
   fpm:
-    build:
-      context: php${PHP_VERSION}/fpm
-      args:
+    # build:
+    #   context: php${PHP_VERSION}/fpm
+    #   args:
+    #     PHP_ENABLE_REDIS: ${PHP_ENABLE_REDIS}
+    #     PHP_ENABLE_XDEBUG: ${PHP_ENABLE_XDEBUG}
+    #     PHP_ENABLE_MONGODB: ${PHP_ENABLE_MONGODB}
+    image: readymadehost/symfony-dev-docker-php${PHP_VERSION}-fpm:latest
+    environment:
         PHP_ENABLE_REDIS: ${PHP_ENABLE_REDIS}
         PHP_ENABLE_XDEBUG: ${PHP_ENABLE_XDEBUG}
         PHP_ENABLE_MONGODB: ${PHP_ENABLE_MONGODB}
@@ -18,9 +23,15 @@ services:
       # - redis
 
   cli:
-    build:
-      context: php${PHP_VERSION}/cli
-      args:
+    # build:
+    #   context: php${PHP_VERSION}/cli
+    #   args:
+    #     NODE_VERSION: ${NODE_VERSION}
+    #     PHP_ENABLE_REDIS: ${PHP_ENABLE_REDIS}
+    #     PHP_ENABLE_XDEBUG: ${PHP_ENABLE_XDEBUG}
+    #     PHP_ENABLE_MONGODB: ${PHP_ENABLE_MONGODB}
+    image: readymadehost/symfony-dev-docker-php${PHP_VERSION}-cli:latest
+    environment:
         NODE_VERSION: ${NODE_VERSION}
         PHP_ENABLE_REDIS: ${PHP_ENABLE_REDIS}
         PHP_ENABLE_XDEBUG: ${PHP_ENABLE_XDEBUG}

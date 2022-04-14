@@ -23,7 +23,21 @@ jobs:
         run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
       - name: Copy .env.sample to .env
         run: cp .env.sample .env
-      - name: For phplatest
-        run: docker-compose -f docker-compose-publish.yml build && docker-compose -f docker-compose-publish.yml push
+      - name: For php8.1
+        run: PHP_VERSION=8.1 docker-compose -f docker-compose-publish.yml build && PHP_VERSION=8.1 docker-compose -f docker-compose-publish.yml push
       - name: For php8.0
         run: PHP_VERSION=8.0 docker-compose -f docker-compose-publish.yml build && PHP_VERSION=8.0 docker-compose -f docker-compose-publish.yml push
+      - name: For php7.4
+        run: PHP_VERSION=7.4 docker-compose -f docker-compose-publish.yml build && PHP_VERSION=7.4 docker-compose -f docker-compose-publish.yml push
+      - name: For php7.3
+        run: PHP_VERSION=7.3 docker-compose -f docker-compose-publish.yml build && PHP_VERSION=7.3 docker-compose -f docker-compose-publish.yml push
+      - name: For php7.2
+        run: PHP_VERSION=7.2 docker-compose -f docker-compose-publish.yml build && PHP_VERSION=7.2 docker-compose -f docker-compose-publish.yml push
+      - name: For php7.1
+        run: PHP_VERSION=7.1 docker-compose -f docker-compose-publish.yml build && PHP_VERSION=7.1 docker-compose -f docker-compose-publish.yml push
+      - name: For php7.0
+        run: PHP_VERSION=7.0 docker-compose -f docker-compose-publish.yml build && PHP_VERSION=7.0 docker-compose -f docker-compose-publish.yml push
+      - name: For php5.6
+        run: PHP_VERSION=5.6 docker-compose -f docker-compose-publish.yml build && PHP_VERSION=5.6 docker-compose -f docker-compose-publish.yml push
+      - name: For php5.5
+        run: PHP_VERSION=5.5 docker-compose -f docker-compose-publish.yml build && PHP_VERSION=5.5 docker-compose -f docker-compose-publish.yml push

@@ -1,0 +1,34 @@
+name: Docker Build
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Copy .env.sample to .env
+        run: cp .env.sample .env
+      - name: For php8.1
+        run: PHP_VERSION=8.1 docker-compose -f docker-compose-publish.yml build
+      - name: For php8.0
+        run: PHP_VERSION=8.0 docker-compose -f docker-compose-publish.yml build
+      - name: For php7.4
+        run: PHP_VERSION=7.4 docker-compose -f docker-compose-publish.yml build
+      - name: For php7.3
+        run: PHP_VERSION=7.3 docker-compose -f docker-compose-publish.yml build
+      - name: For php7.2
+        run: PHP_VERSION=7.2 docker-compose -f docker-compose-publish.yml build
+      - name: For php7.1
+        run: PHP_VERSION=7.1 docker-compose -f docker-compose-publish.yml build
+      - name: For php7.0
+        run: PHP_VERSION=7.0 docker-compose -f docker-compose-publish.yml build
+      - name: For php5.6
+        run: PHP_VERSION=5.6 docker-compose -f docker-compose-publish.yml build
+      - name: For php5.5
+        run: PHP_VERSION=5.5 docker-compose -f docker-compose-publish.yml build

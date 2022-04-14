@@ -5,7 +5,7 @@ A development docker for every symfony project
 
 ## Features
 
-- Build for symfony4, symfony5 and has cli tools
+- Build for symfony projects
 - Bundle of `fpm`, `cli`, `nginx`, `mariadb`, `phpmyadmin`, `mongodb`, `redis` and `emailcatcher` containers
 - Latest 5.5, 5.6, 7.0, 7.1, 7.2, 7.3, 7.4, 8.0 and 8.1 supported
 - Latest database mariadb10, mongodb4 and other versions supported

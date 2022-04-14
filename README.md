@@ -98,3 +98,12 @@ Simply add remote docker-compose php cli interpreter (exec with docker-compose.y
 ## Remote container extension + vscode
 
 With vscode's remote container extension, we can simply connect into cli container.
+
+
+## Quick Link
+
+* Easy installation of PHP extensions in official PHP Docker images
+    - https://github.com/mlocati/docker-php-extension-installer
+
+* MailCatcher
+    - https://github.com/sj26/mailcatcher

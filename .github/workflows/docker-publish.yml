@@ -1,0 +1,29 @@
+name: Docker Publish
+
+on:
+  schedule:
+    - cron: '36 4 * * *'
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Docker Login
+        env:
+          DOCKER_USER: ${{secrets.DOCKER_USER}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - name: Copy .env.sample to .env
+        run: cp .env.sample .env
+      - name: For phplatest
+        run: docker-compose -f docker-compose-publish.yml build && docker-compose -f docker-compose-publish.yml push
+      - name: For php8.0
+        run: PHP_VERSION=8.0 docker-compose -f docker-compose-publish.yml build && PHP_VERSION=8.0 docker-compose -f docker-compose-publish.yml push

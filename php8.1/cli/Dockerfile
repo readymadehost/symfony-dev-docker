@@ -55,7 +55,7 @@ RUN wget https://get.symfony.com/cli/installer -O - | bash
 RUN echo 'export PATH="$HOME/.symfony/bin:$PATH"' >> ~/.bashrc
 
 # Manage project and add scripts
-RUN mkdir /var/www/project
+RUN mkdir -p /var/www/project
 ADD manage-project-permission.sh /root/manage-project-permission.sh
 RUN chmod +x /root/manage-project-permission.sh
 RUN echo 'alias mpp="/root/manage-project-permission.sh"' >> /root/.bashrc

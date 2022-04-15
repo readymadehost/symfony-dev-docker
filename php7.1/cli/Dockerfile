@@ -51,7 +51,7 @@ RUN IPE_DONT_ENABLE=1 install-php-extensions redis \
 ADD conf/php.ini /usr/local/etc/php/php.ini
 
 # Manage project and add scripts
-RUN mkdir /var/www/project
+RUN mkdir -p /var/www/project
 ADD manage-project-permission.sh /root/manage-project-permission.sh
 RUN chmod +x /root/manage-project-permission.sh
 RUN echo 'alias mpp="/root/manage-project-permission.sh"' >> /root/.bashrc

@@ -12,6 +12,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+      - name: Docker build cache
+        uses: satackey/action-docker-layer-caching@v0.0.8
+        continue-on-error: true
       - name: Copy .env.sample to .env
         run: cp .env.sample .env
       - name: For php8.1

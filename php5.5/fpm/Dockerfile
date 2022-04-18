@@ -28,8 +28,7 @@ RUN install-php-extensions \
 	opcache \
 	gd \
 	imagick \
-	apcu \
-	@composer
+	apcu
 
 # Installing other extensions but enabled dynamically
 RUN REDIS_DONT_ENABLE=0 install-php-extensions redis

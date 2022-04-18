@@ -20,9 +20,6 @@ ENV NODE_VERSION ${NODE_VERSION}
 RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION} | bash -
 RUN apt-get -y install nodejs
 
-# Installing yarn using npm
-RUN npm install --global yarn
-
 # Installing extensions
 RUN curl -L https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions \
     -o /usr/local/bin/install-php-extensions && chmod +x /usr/local/bin/install-php-extensions

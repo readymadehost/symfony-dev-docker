@@ -8,8 +8,8 @@ A development docker for every symfony project
 - Build for symfony projects
 - Bundle of `fpm`, `cli`, `nginx`, `mariadb`, `phpmyadmin`, `mongodb`, `redis` and `emailcatcher` containers
 - PHP 5.5, 5.6, 7.0, 7.1, 7.2, 7.3, 7.4, 8.0 and 8.1 supported
-- Latest database mariadb10, mongodb4 and other versions supported
-- Latest node17.x, node16.x, node14.x, node13.x, node12.x, ... supported
+- Database mariadb 10.x, mongodb 4.x ... supported
+- Node 14.x, 16.x, 17.x, ... supported
 - Included symfony, composer, node cli and yarn cli
 - Included emailcatcher with smtp and web view
 - Support for PhpStorm or VSCode + WSL2/docker-desktop setup
@@ -101,8 +101,8 @@ With vscode's remote container extension, we can simply connect into cli contain
 
 ## Pre build docker image
 
-- `readymadehost/symfony-dev-docker-php{PHP_VERSION}-cli`
-- `readymadehost/symfony-dev-docker-php{PHP_VERSION}-fpm`
+- `readymadehost/symfony-dev-docker-php{PHP_VERSION}-cli:latest`
+- `readymadehost/symfony-dev-docker-php{PHP_VERSION}-fpm:latest`
 
 
 ## Quick Link

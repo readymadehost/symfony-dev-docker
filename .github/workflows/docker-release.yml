@@ -13,8 +13,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Set env
-        run: echo ::set-env name=RELEASE_VERSION::$(echo ${GITHUB_REF:10})
+      - name: Get release tag
+        uses: olegtarasov/get-tag@v2.1
+        id: tagName
+        with:
+          tagRegex: "(.*)"
+          tagRegexGroup: 1
       - name: Docker build cache
         uses: satackey/action-docker-layer-caching@v0.0.11
         continue-on-error: true
@@ -30,20 +34,20 @@ jobs:
       - name: Copy .env.sample to .env
         run: cp .env.sample .env
       - name: For php8.1
-        run: PHP_VERSION=8.1 DOCKER_TAG=$RELEASE_VERSION docker-compose -f docker-compose-publish.yml build && PHP_VERSION=8.1 DOCKER_TAG=$RELEASE_VERSION docker-compose -f docker-compose-publish.yml push
+        run: PHP_VERSION=8.1 DOCKER_TAG=$GIT_TAG_NAME docker-compose -f docker-compose-publish.yml build && PHP_VERSION=8.1 DOCKER_TAG=$GIT_TAG_NAME docker-compose -f docker-compose-publish.yml push
       - name: For php8.0
-        run: PHP_VERSION=8.0 DOCKER_TAG=$RELEASE_VERSION docker-compose -f docker-compose-publish.yml build && PHP_VERSION=8.0 DOCKER_TAG=$RELEASE_VERSION docker-compose -f docker-compose-publish.yml push
+        run: PHP_VERSION=8.0 DOCKER_TAG=$GIT_TAG_NAME docker-compose -f docker-compose-publish.yml build && PHP_VERSION=8.0 DOCKER_TAG=$GIT_TAG_NAME docker-compose -f docker-compose-publish.yml push
       - name: For php7.4
-        run: PHP_VERSION=7.4 DOCKER_TAG=$RELEASE_VERSION docker-compose -f docker-compose-publish.yml build && PHP_VERSION=7.4 DOCKER_TAG=$RELEASE_VERSION docker-compose -f docker-compose-publish.yml push
+        run: PHP_VERSION=7.4 DOCKER_TAG=$GIT_TAG_NAME docker-compose -f docker-compose-publish.yml build && PHP_VERSION=7.4 DOCKER_TAG=$GIT_TAG_NAME docker-compose -f docker-compose-publish.yml push
       - name: For php7.3
-        run: PHP_VERSION=7.3 DOCKER_TAG=$RELEASE_VERSION docker-compose -f docker-compose-publish.yml build && PHP_VERSION=7.3 DOCKER_TAG=$RELEASE_VERSION docker-compose -f docker-compose-publish.yml push
+        run: PHP_VERSION=7.3 DOCKER_TAG=$GIT_TAG_NAME docker-compose -f docker-compose-publish.yml build && PHP_VERSION=7.3 DOCKER_TAG=$GIT_TAG_NAME docker-compose -f docker-compose-publish.yml push
       - name: For php7.2
-        run: PHP_VERSION=7.2 DOCKER_TAG=$RELEASE_VERSION docker-compose -f docker-compose-publish.yml build && PHP_VERSION=7.2 DOCKER_TAG=$RELEASE_VERSION docker-compose -f docker-compose-publish.yml push
+        run: PHP_VERSION=7.2 DOCKER_TAG=$GIT_TAG_NAME docker-compose -f docker-compose-publish.yml build && PHP_VERSION=7.2 DOCKER_TAG=$GIT_TAG_NAME docker-compose -f docker-compose-publish.yml push
       - name: For php7.1
-        run: PHP_VERSION=7.1 DOCKER_TAG=$RELEASE_VERSION docker-compose -f docker-compose-publish.yml build && PHP_VERSION=7.1 DOCKER_TAG=$RELEASE_VERSION docker-compose -f docker-compose-publish.yml push
+        run: PHP_VERSION=7.1 DOCKER_TAG=$GIT_TAG_NAME docker-compose -f docker-compose-publish.yml build && PHP_VERSION=7.1 DOCKER_TAG=$GIT_TAG_NAME docker-compose -f docker-compose-publish.yml push
       - name: For php7.0
-        run: PHP_VERSION=7.0 DOCKER_TAG=$RELEASE_VERSION docker-compose -f docker-compose-publish.yml build && PHP_VERSION=7.0 DOCKER_TAG=$RELEASE_VERSION docker-compose -f docker-compose-publish.yml push
+        run: PHP_VERSION=7.0 DOCKER_TAG=$GIT_TAG_NAME docker-compose -f docker-compose-publish.yml build && PHP_VERSION=7.0 DOCKER_TAG=$GIT_TAG_NAME docker-compose -f docker-compose-publish.yml push
       - name: For php5.6
-        run: PHP_VERSION=5.6 DOCKER_TAG=$RELEASE_VERSION docker-compose -f docker-compose-publish.yml build && PHP_VERSION=5.6 DOCKER_TAG=$RELEASE_VERSION docker-compose -f docker-compose-publish.yml push
+        run: PHP_VERSION=5.6 DOCKER_TAG=$GIT_TAG_NAME docker-compose -f docker-compose-publish.yml build && PHP_VERSION=5.6 DOCKER_TAG=$GIT_TAG_NAME docker-compose -f docker-compose-publish.yml push
       - name: For php5.5
-        run: PHP_VERSION=5.5 DOCKER_TAG=$RELEASE_VERSION docker-compose -f docker-compose-publish.yml build && PHP_VERSION=5.5 DOCKER_TAG=$RELEASE_VERSION docker-compose -f docker-compose-publish.yml push
+        run: PHP_VERSION=5.5 DOCKER_TAG=$GIT_TAG_NAME docker-compose -f docker-compose-publish.yml build && PHP_VERSION=5.5 DOCKER_TAG=$GIT_TAG_NAME docker-compose -f docker-compose-publish.yml push

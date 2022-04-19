@@ -8,7 +8,7 @@ services:
         PHP_ENABLE_REDIS: ${PHP_ENABLE_REDIS}
         PHP_ENABLE_XDEBUG: ${PHP_ENABLE_XDEBUG}
         PHP_ENABLE_MONGODB: ${PHP_ENABLE_MONGODB}
-    image: readymadehost/symfony-dev-docker-php${PHP_VERSION}-fpm:latest
+    image: readymadehost/symfony-dev-docker-php${PHP_VERSION}-fpm:${DOCKER_TAG}
 
   cli:
     build:
@@ -18,4 +18,4 @@ services:
         PHP_ENABLE_REDIS: ${PHP_ENABLE_REDIS}
         PHP_ENABLE_XDEBUG: ${PHP_ENABLE_XDEBUG}
         PHP_ENABLE_MONGODB: ${PHP_ENABLE_MONGODB}
-    image: readymadehost/symfony-dev-docker-php${PHP_VERSION}-cli:latest
+    image: readymadehost/symfony-dev-docker-php${PHP_VERSION}-cli:${DOCKER_TAG}

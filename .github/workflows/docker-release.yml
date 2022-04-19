@@ -20,7 +20,8 @@ jobs:
         continue-on-error: true
         with:
           key: symfony-dev-docker-cache-{hash}
-          restore-keys: symfony-dev-docker-cache-
+          restore-keys: |
+            symfony-dev-docker-cache-
       - name: Docker Login
         env:
           DOCKER_USER: ${{secrets.DOCKER_USER}}

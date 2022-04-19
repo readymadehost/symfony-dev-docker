@@ -17,7 +17,8 @@ jobs:
         continue-on-error: true
         with:
           key: symfony-dev-docker-cache-{hash}
-          restore-keys: symfony-dev-docker-cache-
+          restore-keys: |
+            symfony-dev-docker-cache-
       - name: Copy .env.sample to .env
         run: cp .env.sample .env
       - name: For php8.1

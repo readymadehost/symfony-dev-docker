@@ -1,18 +1,23 @@
 #!/bin/sh
 
+if [ ${PHP_ENABLE_AMQP} -eq "1" ]; then
+    docker-php-ext-enable amqp
+    echo "-- php amqp extension enabled"
+fi
+
 if [ ${PHP_ENABLE_REDIS} -eq "1" ]; then
     docker-php-ext-enable redis
-    echo "-- php fpm redis extension enabled"
+    echo "-- php redis extension enabled"
 fi
 
 if [ ${PHP_ENABLE_XDEBUG} -eq "1" ]; then
     docker-php-ext-enable xdebug
-    echo "-- php fpm xdebug extension enabled"
+    echo "-- php xdebug extension enabled"
 fi
 
 if [ ${PHP_ENABLE_MONGODB} -eq "1" ]; then
     docker-php-ext-enable mongodb
-    echo "-- php fpm mongodb extension enabled"
+    echo "-- php mongodb extension enabled"
 fi
 
 exec "$@"

@@ -39,7 +39,8 @@ RUN install-php-extensions \
 	apcu
 
 # Installing other extensions but enabled dynamically
-RUN IPE_DONT_ENABLE=1 install-php-extensions redis \
+RUN IPE_DONT_ENABLE=1 install-php-extensions amqp \
+	redis \
 	mongodb \
 	xdebug
 

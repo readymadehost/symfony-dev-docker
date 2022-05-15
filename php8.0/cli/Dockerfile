@@ -43,7 +43,8 @@ RUN install-php-extensions \
 	@composer
 
 # Installing other extensions but enabled dynamically
-RUN IPE_DONT_ENABLE=1 install-php-extensions redis \
+RUN IPE_DONT_ENABLE=1 install-php-extensions amqp \
+	redis \
 	mongodb \
 	xdebug
 

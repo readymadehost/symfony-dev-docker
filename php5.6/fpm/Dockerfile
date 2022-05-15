@@ -40,6 +40,8 @@ RUN IPE_DONT_ENABLE=1 install-php-extensions amqp \
 # Updating php.ini
 ADD conf/php.ini /usr/local/etc/php/php.ini
 
+ARG PHP_ENABLE_AMQP
+ENV PHP_ENABLE_AMQP ${PHP_ENABLE_AMQP}
 ARG PHP_ENABLE_REDIS
 ENV PHP_ENABLE_REDIS ${PHP_ENABLE_REDIS}
 ARG PHP_ENABLE_XDEBUG

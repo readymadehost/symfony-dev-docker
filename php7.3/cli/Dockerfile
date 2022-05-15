@@ -58,6 +58,8 @@ RUN chmod +x /root/manage-project-permission.sh
 RUN echo 'alias mpp="/root/manage-project-permission.sh"' >> /root/.bashrc
 RUN /root/manage-project-permission.sh
 
+ARG PHP_ENABLE_AMQP
+ENV PHP_ENABLE_AMQP ${PHP_ENABLE_AMQP}
 ARG PHP_ENABLE_REDIS
 ENV PHP_ENABLE_REDIS ${PHP_ENABLE_REDIS}
 ARG PHP_ENABLE_XDEBUG

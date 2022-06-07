@@ -32,12 +32,18 @@ A development docker for every symfony project
 
 - `docker-compose exec cli bash` and make sure you are at `/var/www/project` dir
 - `composer create-project symfony/website-skeleton .`
-- or `composer create-project symfony/skeleton .`
-- or `cd ../ && symfony new project --full`
-- or `cd ../ && symfony new project`
-- or `cd ../ && symfony new project --version=lts`
-- or `cd ../ && symfony new project --demo`
-- or `cd ../ && symfony new project --version=next`
+or `composer create-project symfony/skeleton .`
+
+or `cd ../ && symfony new project --full`
+
+or `cd ../ && symfony new project`
+
+or `cd ../ && symfony new project --version=lts`
+
+or `cd ../ && symfony new project --demo`
+
+or `cd ../ && symfony new project --version=next`
+
 - Run bash alis `mpp` for `/root/manage-project-permission.sh`
 
 

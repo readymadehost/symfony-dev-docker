@@ -26,6 +26,12 @@ jobs:
           DOCKER_USER: ${{secrets.DOCKER_USER}}
           DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
         run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - name: Clear docker cache if Wed
+        run: |
+          if [ $(date +%a) == "Wed" ] then
+            docker system prune -f
+          fi
+        shell: bash
       - name: Copy .env.sample to .env
         run: cp .env.sample .env
       - name: For php8.1

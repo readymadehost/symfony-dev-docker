@@ -28,7 +28,9 @@ jobs:
         run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
       - name: Clear docker cache if Wed
         run: |
-          if [ $(date +%a) == "Wed" ] then
+          today=$(date +%a)
+          if [ $today = "Wed" ]
+          then
             docker system prune -f
           fi
         shell: bash

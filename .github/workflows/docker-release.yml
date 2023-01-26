@@ -33,6 +33,8 @@ jobs:
         run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
       - name: Copy .env.sample to .env
         run: cp .env.sample .env
+      - name: For php8.2
+        run: PHP_VERSION=8.2 DOCKER_TAG=$GIT_TAG_NAME docker-compose -f docker-compose-publish.yml build && PHP_VERSION=8.2 DOCKER_TAG=$GIT_TAG_NAME docker-compose -f docker-compose-publish.yml push
       - name: For php8.1
         run: PHP_VERSION=8.1 DOCKER_TAG=$GIT_TAG_NAME docker-compose -f docker-compose-publish.yml build && PHP_VERSION=8.1 DOCKER_TAG=$GIT_TAG_NAME docker-compose -f docker-compose-publish.yml push
       - name: For php8.0

@@ -36,8 +36,8 @@ jobs:
       - name: For php7.1
         run: PHP_VERSION=7.1 docker-compose -f docker-compose-publish.yml build
       - name: For php7.0
-        run: PHP_VERSION=7.0 docker-compose -f docker-compose-publish.yml build
+        run: PHP_VERSION=7.0 NODE_VERSION=16.x docker-compose -f docker-compose-publish.yml build
       - name: For php5.6
-        run: PHP_VERSION=5.6 docker-compose -f docker-compose-publish.yml build
+        run: PHP_VERSION=5.6 NODE_VERSION=14.x docker-compose -f docker-compose-publish.yml build
       - name: For php5.5
-        run: PHP_VERSION=5.5 docker-compose -f docker-compose-publish.yml build
+        run: PHP_VERSION=5.5 NODE_VERSION=14.x docker-compose -f docker-compose-publish.yml build

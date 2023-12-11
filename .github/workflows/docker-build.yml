@@ -23,6 +23,8 @@ jobs:
             symfony-dev-docker-cache-
       - name: Copy .env.sample to .env
         run: cp .env.sample .env
+      - name: For php8.3
+        run: PHP_VERSION=8.3 docker-compose -f docker-compose-publish.yml build
       - name: For php8.2
         run: PHP_VERSION=8.2 docker-compose -f docker-compose-publish.yml build
       - name: For php8.1
@@ -37,7 +39,4 @@ jobs:
         run: PHP_VERSION=7.2 docker-compose -f docker-compose-publish.yml build
       - name: For php7.1
         run: PHP_VERSION=7.1 docker-compose -f docker-compose-publish.yml build
-      - name: For php7.0
-        run: PHP_VERSION=7.0 NODE_VERSION=16.x docker-compose -f docker-compose-publish.yml build
-      - name: For php5.6
-        run: PHP_VERSION=5.6 NODE_VERSION=14.x docker-compose -f docker-compose-publish.yml build
+

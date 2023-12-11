@@ -27,7 +27,7 @@ RUN install-php-extensions \
 	bcmath \
 	opcache \
 	gd \
-	imagick \
+	# imagick \
 	apcu \
 	@composer
 

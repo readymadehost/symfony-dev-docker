@@ -19,13 +19,6 @@ jobs:
         with:
           tagRegex: "(.*)"
           tagRegexGroup: 1
-      - name: Docker build cache
-        uses: satackey/action-docker-layer-caching@v0.0.11
-        continue-on-error: true
-        with:
-          key: symfony-dev-docker-cache-{hash}
-          restore-keys: |
-            symfony-dev-docker-cache-
       - name: Docker Login
         env:
           DOCKER_USER: ${{secrets.DOCKER_USER}}
